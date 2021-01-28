@@ -8,15 +8,12 @@ Created on Wed Jan 27 23:55:54 2021
 
 import re
 import itertools
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import word_tokenize
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.preprocessing import FunctionTransformer
 # nltk.download('stopwords')
 # nltk.download('punkt')
 
@@ -24,21 +21,6 @@ def preclean(df):
     df.drop(['author', 'text', 'id'], axis=1, inplace=True)
     df.dropna(inplace=True)
     df.reset_index(inplace=True, drop=True)
-    
-
-def preprocess_pipeline():
-    def clean_text(df):
-        corpus=[]
-        ps=PorterStemmer()
-        for i in range(0, len(df)):
-            txt = re.sub('[^a-zA-Z]', ' ', df['title'][i])
-            txt = txt.lower()
-            txt = txt.split()
-            txt = [ps.stem(word) for word in txt if word not in stopwords.words('english')]
-            txt = ' '.join(txt)
-            corpus.append(txt)
-        return pd.DataFrame(corpus, columns=['title'])
-    return FunctionTransformer(clean_text, validate=False)
 
 def tokenize(text):
     text = text.lower() 
@@ -46,12 +28,6 @@ def tokenize(text):
     words = word_tokenize(text)
     words = [PorterStemmer().stem(w) for w in words if w not in stopwords.words("english")]
     return words
-
-
-def vectorizer_bow(corpus):
-    cv = CountVectorizer(max_features=5000, ngram_range=(1,3))
-    X = cv.fit_transform(corpus).toarray()
-    return X, cv
     
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
