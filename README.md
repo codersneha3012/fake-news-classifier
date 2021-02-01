@@ -31,4 +31,25 @@ Over-fitting
 
 Two lstm layers with 50 neurons With Dropout
 Accuracy: 0.921290959986827
-Performs better, but in this case not that significant difference
+Performs better, but in this dataset, there's not much significant difference is visible.
+
+Updated - One lstm layer with 10 neurons
+Epoch 1/10
+222/222 [==============================] - 11s 50ms/step - loss: 0.5251 - accuracy: 0.7650 - val_loss: 0.1971 - val_accuracy: 0.9290
+Epoch 2/10
+222/222 [==============================] - 11s 50ms/step - loss: 0.1256 - accuracy: 0.9577 - val_loss: 0.1786 - val_accuracy: 0.9312
+Epoch 3/10
+222/222 [==============================] - 11s 51ms/step - loss: 0.0613 - accuracy: 0.9828 - val_loss: 0.1978 - val_accuracy: 0.9251
+
+So it starts to overfit after 2 epochs only. So I introduced early stopping here.
+So, then it stopped at epoch 3, with following metrics:
+Epoch 3/10
+222/222 [==============================] - 11s 50ms/step - loss: 0.0658 - accuracy: 0.9804 - val_loss: 0.1988 - val_accuracy: 0.9210
+Accuracy: 0.9209616334595752
+![CM Plot](static/plt3.png)
+
+
+#### Solution 4: CountVectorizer & LogisticRegression. Hyperparameter tuned using GridSearchCV.
+
+Accuracy: 0.9236526946107785
+![CM Plot](static/plt4.png)
