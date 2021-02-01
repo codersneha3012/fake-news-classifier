@@ -16,7 +16,7 @@ Accuracy - 93%
 ![CM Plot](static/plt2.png)
 
 
-#### Solution 3: WordEmbedding
+#### Solution 3: WordEmbedding & LSTM
 
 One lstm layer with 100 neurons
 Epoch 10/10
